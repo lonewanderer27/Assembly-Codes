@@ -1,9 +1,9 @@
 .model small
 .stack 100h
 .data
-  msg1 db 10, 13, "Enter a number: $"
+  msg1 db 10, 13, 10, 13, "Enter a number: $"
   msg2 db 10, 13, "Invalid Input $"
-  msg3 db 10, 13, "Another number (y/n)? $"
+  msg3 db 10, 13, 10, 13, "Another number (y/n)? $"
   m0 db 10, 13, "zero $"
   m1 db 10, 13, "one $"
   m2 db 10, 13, "two $"
@@ -90,31 +90,31 @@
 
   p0:
     mov ah, 09h
-    mov dx, offset more
+    mov dx, offset m0
     int 21h
     jmp more
 
   p1:
     mov ah, 09h
-    mov dx, offset more
+    mov dx, offset m1
     int 21h
     jmp more
   
   p2:
     mov ah, 09h
-    mov dx, offset more
+    mov dx, offset m2
     int 21h
     jmp more
 
   p3:
     mov ah, 09h
-    mov dx, offset more
+    mov dx, offset m3
     int 21h
     jmp more
 
   p4:
     mov ah, 09h
-    mov dx, offset more
+    mov dx, offset m4
     int 21h
     jmp more
   
