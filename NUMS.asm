@@ -28,7 +28,7 @@
   mov ax, @data
   mov ds, ax
 
-  prompt:
+  prompt:   ; function to display prompt and read input
     ; print msg1
     mov ah, 09h
     mov dx, offset msg1
@@ -70,7 +70,8 @@
 
     jmp invalid
 
-  more:
+  
+  more:     ; function to display prompt to enter another number
     mov ah, 09h
     mov dx, offset msg3
     int 21h
@@ -90,7 +91,7 @@
     cmp al, "n"
     je exit
   
-  invalid:
+  invalid:  ; function to display error message
     mov ah, 09h
     mov dx, offset msg2
     int 21h
@@ -126,7 +127,7 @@
     int 21h
     jmp more
   
-  mr1:
+  mr1:  ; Connector jump to more for p5 to p9 functions
     jmp more
 
   p5:
