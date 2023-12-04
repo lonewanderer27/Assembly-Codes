@@ -1,9 +1,9 @@
 .model small
 .stack 100h
 .data
-  msg1 db 10, 13, "Enter a number (Q to quit): $"
+  msg1 db 10, 13, "Enter a number: $"
   msg2 db 10, 13, "Invalid Input $"
-  inp db 0
+  msg3 db 10, 13, "Another number (y/n)? $"
   m0 db 10, 13, "zero $"
   m1 db 10, 13, "one $"
   m2 db 10, 13, "two $"
@@ -60,79 +60,96 @@
     cmp al, "9"
     je p9
 
-    cmp al, "Q"
-    je exit
-
-    cmp al, "q"
-    je exit
-
     jmp invalid
 
+  more:
+    mov ah, 09h
+    mov dx, offset msg3
+    int 21h
+
+    mov ah, 01h
+    int 21h
+
+    cmp al, "Y"
+    je prompt
+
+    cmp al, "y"
+    je prompt
+
+    cmp al, "N"
+    je exit
+
+    cmp al, "n"
+    je exit
+  
   invalid:
     mov ah, 09h
     mov dx, offset msg2
     int 21h
-    jmp prompt
+    jmp mr1
 
   p0:
     mov ah, 09h
-    mov dx, offset m0
+    mov dx, offset more
     int 21h
-    jmp prompt
+    jmp more
 
   p1:
     mov ah, 09h
-    mov dx, offset m1
+    mov dx, offset more
     int 21h
-    jmp prompt
+    jmp more
   
   p2:
     mov ah, 09h
-    mov dx, offset m2
+    mov dx, offset more
     int 21h
-    jmp prompt
+    jmp more
 
   p3:
     mov ah, 09h
-    mov dx, offset m3
+    mov dx, offset more
     int 21h
-    jmp prompt
+    jmp more
 
   p4:
     mov ah, 09h
-    mov dx, offset m4
+    mov dx, offset more
     int 21h
-    jmp prompt
+    jmp more
+  
+  mr1:
+    jmp more
 
   p5:
     mov ah, 09h
     mov dx, offset m5
     int 21h
-    jmp prompt
+    jmp mr1
 
   p6:
     mov ah, 09h
     mov dx, offset m6
     int 21h
-    jmp prompt
+    jmp mr1
 
   p7:
     mov ah, 09h
     mov dx, offset m7
     int 21h
-    jmp prompt
+    jmp mr1
   
   p8:
     mov ah, 09h
     mov dx, offset m8
     int 21h
-    jmp prompt
+    jmp mr1
   
   p9:
     mov ah, 09h
     mov dx, offset m9
     int 21h
-    jmp prompt
+    jmp mr1
 
   exit:
     mov ah, 4ch
